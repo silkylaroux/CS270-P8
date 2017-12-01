@@ -1,0 +1,12 @@
+#!/bin/bash
+# Fritz Sieker
+# create the files specified on commmand line to set install location
+
+sedCmd="s?abs_path_to_install_dir?$(pwd)?"
+
+for origFile in $*
+do
+  sed -e "$sedCmd" "${origFile}.MASTER" > ${origFile}
+done
+
+chmod -f +x *-tk
