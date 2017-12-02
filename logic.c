@@ -38,7 +38,7 @@ static int execute_ADD (instruction_t* inst) {
   /* clock cycle 4 */
   LC3_WORD ALU = hardware_get_REG(inst->SR1) ;
   if (inst->bit5 == 0)               /* ADD SR2 */
-    ALU = !OK ;                      /* unimplemented */
+    ALU += inst->SR2 ;    
   else                               /* ADD immediate */
     ALU += inst->imm5;
   lc3_BUS = &ALU;                    /* put ALU on BUS  */
@@ -65,6 +65,29 @@ static int execute_ST (instruction_t* inst) {
 
 /** @todo many more instructions to add here */ 
 
+static int execute_AND (instruction_t* inst) {
+  /* clock cycle 4*/
+  LC3_WORD ALU = hardware_get_REG(inst->SR1) ;
+  if (inst->bit5 == 0)               /* AND SR2 */
+    ALU &= inst->SR2 ;   
+  else                               /* AND immediate */
+    ALU &= inst->imm5;
+  lc3_BUS = &ALU;                    /* put ALU on BUS  */
+  hardware_load_REG(inst->DR);       /* load DR from BUS  */
+  hardware_set_CC(logic_NZP(ALU));   /* set condition code */
+  return OK;
+}
+
+static int execute_NOT (instruction_t* inst) {
+    /*clock cycle 4*/
+    LC3_WORD ALU = hardware_get_REG(inst->SR1) ;
+    ALU = ~ALU ;                     /* NOT SR1 */
+
+    lc3_BUS = &ALU;
+    hardware_load_REG(inst->DR);     /* load DR from BUS */
+    hardware_set_CC(logic_NZP(ALU));
+    return OK;
+}
 
 
 
