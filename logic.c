@@ -91,6 +91,8 @@ static int execute_NOT (instruction_t* inst) {
 
 
 
+
+
 /* Instruction fetch, decode, and execution functions already provided. 
  *
  * logic_fetch_instruction completes the first 3 clock cycles of each
@@ -199,11 +201,11 @@ int logic_execute_instruction (instruction_t* inst) {
     case OP_LD:       return not_implemented();
     case OP_ST:       return execute_ST(inst);
     case OP_JSR_JSRR: return not_implemented();
-    case OP_AND:      return not_implemented();
+    case OP_AND:      return execute_AND(inst);
     case OP_LDR:      return not_implemented();
     case OP_STR:      return not_implemented();
     case OP_RTI:      return not_implemented();
-    case OP_NOT:      return not_implemented();
+    case OP_NOT:      return execute_NOT(inst);
     case OP_LDI:      return not_implemented();
     case OP_STI:      return not_implemented();
     case OP_JMP_RET:  return not_implemented();
