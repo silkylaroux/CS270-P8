@@ -1,0 +1,9 @@
+		.ORIG X3000
+STORE 	.BLKW 1
+
+		ADD R1, R1,#7
+		ST R1, STORE
+		NOT R2,R1
+
+		HALT
+		.END
